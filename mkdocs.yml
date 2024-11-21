@@ -1,0 +1,5 @@
+site_name: sum-opensource
+nav:
+  - Home: index.md
+  - Installation: install.md
+  - Usage: usage.md
