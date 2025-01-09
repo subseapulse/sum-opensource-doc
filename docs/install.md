@@ -21,7 +21,7 @@ Before installation, the following dependencies must be satisfied:
 
 You may obtain the project's source code by cloning its Git repository using the following command:
 
-	git clone https://gitlab.dei.unipd.it/underwater-projects/moda-modem/janus-wrapper.git
+	git clone https://github.com/subseapulse/sum-opensource.git
 
 The project source files include an installation script named `installer.sh` which supports the following options:
 
