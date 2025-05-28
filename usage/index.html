@@ -101,6 +101,9 @@
 <h2 id="parameters">Parameters</h2>
 <p><code>janus_executable</code> can be run specifying either no parameters or all of them.
 When specifying parameters, the user must provide all of them in the following order:</p>
+<pre><code>./janus_executable sampling_frequency center_frequency bandwidth tx_gain wot hd mac src_addr dest_addr verbosity
+</code></pre>
+<p>Previous versions of the executable (release v1.0) used less parameters, as listed below:</p>
 <pre><code>./janus_executable sampling_frequency center_frequency bandwidth tx_gain src_addr dest_addr verbosity
 </code></pre>
 <p>When no parameters are specified default values are used.</p>
@@ -112,6 +115,7 @@ When specifying parameters, the user must provide all of them in the following o
 <th>Info</th>
 <th>Valid type [and range]</th>
 <th>Default value</th>
+<th>Version constraints</th>
 </tr>
 </thead>
 <tbody>
@@ -120,87 +124,78 @@ When specifying parameters, the user must provide all of them in the following o
 <td>Sampling rate used by the DAC/ADC</td>
 <td><code>int</code></td>
 <td>44100</td>
+<td></td>
 </tr>
 <tr>
 <td>center_frequency</td>
 <td>Central frequency of the signal (depends on JANUS band)</td>
 <td><code>int</code></td>
 <td>11520</td>
+<td></td>
 </tr>
 <tr>
 <td>bandwidth</td>
 <td>Signal bandwidth (depends on JANUS band)</td>
 <td><code>int</code></td>
 <td>4160</td>
+<td></td>
 </tr>
 <tr>
 <td>tx_gain</td>
 <td>Transmitter gain (power)</td>
 <td><code>float</code>[0.01-0.99]</td>
 <td>0.9</td>
+<td></td>
+</tr>
+<tr>
+<td>wot</td>
+<td>(preliminary) JANUS wake-up-tone support (<strong>tx only!</strong>)</td>
+<td>0=disabled,1=enabled</td>
+<td>0</td>
+<td>v1.1 onwards</td>
+</tr>
+<tr>
+<td>hd</td>
+<td>Half-duplex mode (disables rx when transmitting)</td>
+<td>0=disabled,1=enabled</td>
+<td>1</td>
+<td>v1.1 onwards</td>
+</tr>
+<tr>
+<td>mac</td>
+<td>Additional MAC layer support for addressing (as below)</td>
+<td>0=disabled,1=enabled</td>
+<td>0</td>
+<td>v1.1 onwards</td>
 </tr>
 <tr>
 <td>src_addr</td>
 <td>Source node (modem) identification number</td>
 <td><code>int</code>[1-15]</td>
 <td>1</td>
+<td></td>
 </tr>
 <tr>
 <td>dest_addr</td>
 <td>Identification number of the destination node (modem)</td>
 <td><code>int</code>[0-15], <strong>0=broadcast</strong></td>
 <td>0</td>
+<td></td>
 </tr>
 <tr>
 <td>verbosity</td>
 <td>Verbosity level of the program</td>
 <td>0, 1, 2</td>
 <td>0</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>Parameter name</th>
-<th>Info</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>sampling_frequency</td>
-<td>Sampling rate used by the DAC/ADC</td>
-</tr>
-<tr>
-<td>center_frequency</td>
-<td>Central frequency of the signal (depends on JANUS band)</td>
-</tr>
-<tr>
-<td>bandwidth</td>
-<td>Signal bandwidth (depends on JANUS band)</td>
-</tr>
-<tr>
-<td>tx_gain</td>
-<td>Transmitter gain (power)</td>
-</tr>
-<tr>
-<td>src_addr</td>
-<td>Source node (modem) identification number</td>
-</tr>
-<tr>
-<td>dest_addr</td>
-<td>Identification number of the destination node (modem)</td>
-</tr>
-<tr>
-<td>verbosity</td>
-<td>Verbosity level of the program</td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <h2 id="usage">Usage</h2>
 <p><strong><code>janus_executable</code> needs to run for the whole time the modem is operational.</strong> The process will both wait for user data to be transmitted and simultaneously will listen to the audio input for incoming signals. Depending on the specified verbosity level, it will also print statistics on sent/incoming frames: level 0 won't output anything while level 2 will print all statistics about sent and incoming data frames. Level 1 will print partial statistics only.
 If you wish to use a single terminal for running the modem software and sending/receiving data you may run the modem in background using <code>./janus_executable [params]&amp;</code> (not to use with verbosity &gt;0).</p>
-<p>By default, the executable will send and receive data to/from the user through a TCP socket: the user must connect to port 55555 in order to visualize incoming messages and send ones. On Linux, <strong>nc</strong> may be used: the appropriate syntax for connection will be <code>nc localhost 55555</code>.</p></div>
+<p>By default, the executable will send and receive data to/from the user through a TCP socket: the user must connect to port 55555 in order to visualize incoming messages and send ones. On Linux, <strong>nc</strong> may be used: the appropriate syntax for connection will be <code>nc localhost 55555</code>.</p>
+<p>Version 1.0 of the software includes by default a basic MAC system where all packets include a 1-byte header with source address (src_addr) and destination address (dest_addr) that are evaluated on packet reception to whether decode or discard the packet. Starting from version 1.1 this behaviour can be toggled with the 'mac' parameter: if disabled, the provided 'src_addr' and 'dest_addr' are simply ignored.</p></div>
             </div>
         </div>
 
