@@ -6,6 +6,8 @@ Before installation, the following dependencies must be satisfied:
 * JANUS library, to be installed in the default path. Refer to [the JANUS website](https://www.januswiki.com/) for download and installation procedures.
 
 	`Note: usage of JANUS ver. 3.0.5 is recommended`
+	
+	**Please note** if you plan to use JANUS at a sampling frequency of 192kHz please patch the JANUS code before installing it [as described in this guide](https://github.com/subseapulse/sum-opensource-doc/raw/refs/heads/master/janus-hf-patch.pdf).
 
 * libasound2 library, which can be installed by running
 
